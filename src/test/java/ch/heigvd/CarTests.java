@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -15,7 +17,7 @@ import com.google.gson.stream.JsonReader;
 public class CarTests {
 
     private DriversToCar fleet = new DriversToCar();
-    private String jsonTest = "";
+
 
     @BeforeEach
     void doBeforeEach() throws FileNotFoundException {
@@ -29,14 +31,27 @@ public class CarTests {
 
     @Test
     void plateMustBePresent(){
-        String plateExcepted;
-        fleet.parseJsonToCar();
-        List<Car> cars = fleet.getCars();
+        String plateExcepted = "GE 123201";
+        Car carReceived = fleet.parseJsonToCar();
 
-        //recupere la voiture
-        //comparer les champs
-
+        assertEquals(plateExcepted,carReceived.getPlate());
 
 
     }
+
+    @Test
+    void mapMustBeTheSame(){
+        Map<String,String> mapExcepted = new HashMap<String, String>();
+        mapExcepted.put("Modèle","Volkswagen California");
+        mapExcepted.put("Sous-éléments","Coordonnées du chauffeur");
+        mapExcepted.put("Nom/prénom","Schmidt Alain");
+
+        Car carReceived = fleet.parseJsonToCar();
+
+        assertEquals(mapExcepted,carReceived.getColumnValues());
+
+
+    }
+
+
 }
