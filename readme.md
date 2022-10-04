@@ -4,4 +4,4 @@
 
  ## Choix de la librairie pour traiter du Json
 
- 
+Expliquer le choix de "Gson".
