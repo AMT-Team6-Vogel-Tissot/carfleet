@@ -7,12 +7,12 @@ public class DriversToCar {
     private List<Car> cars;
     private List<Driver> drivers;
 
-    public void parseJsonToCar(){
+    public Car parseJsonToCar(){
         //parse JSON
         //add car to list
     }
 
-    public void parseJsonToDriver(){
+    public Driver parseJsonToDriver(){
         //parse JSON
         //add driver to list
 
