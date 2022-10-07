@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Driver {
-    private int id;
+    private String id;
     private String plate;
     private String name;
     private Map<String,String> column_values = new HashMap<String, String>();
 
-    public int getId(){
+    public String getId(){
         return id;
     }
 
