@@ -29,10 +29,10 @@ public class CarTests {
 
     @Test
     void isTheCreationOfACarIsCorrect(){
-        Map<String,String> mapExcepted = new HashMap<>();
+        Map<String,String> mapExcepted = new LinkedHashMap<>();
 
         mapExcepted.put("id", ID);
-        mapExcepted.put("plate", NAME);
+        mapExcepted.put("name", NAME);
 
         ArrayList<String> tabDriver = new ArrayList<>(Arrays.asList(carReceived.getId(), carReceived.getPlate()));
 
@@ -45,12 +45,18 @@ public class CarTests {
 
     @Test
     void isTheCreationOfColumnValuesIsCorrect(){
-        Map<String,String> mapExcepted = new HashMap<>();
+        Map<String,String> mapExcepted = new LinkedHashMap<>();
 
         mapExcepted.put("Nom/prénom", VAL_1);
         mapExcepted.put("Téléphone", VAL_2);
 
-        assertEquals(mapExcepted, carReceived.getColumnValues());
+        Iterator<Values> i = carReceived.getColumnValues().iterator();
+
+        for(Map.Entry<String, String> m : mapExcepted.entrySet()){
+            Values val = i.next();
+            assertEquals(m.getKey(), val.getTitle());
+            assertEquals(m.getValue(), val.getText());
+        }
 
     }
 

@@ -1,27 +1,29 @@
 package ch.heigvd;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Driver {
     private String id;
-    private String plate;
     private String name;
-    private Map<String,String> column_values = new HashMap<String, String>();
+    private String responsable;
+
+    private ArrayList<Values> column_values;
 
     public String getId(){
         return id;
     }
 
     public String getPlate(){
-        return plate;
-    }
-
-    public String name(){
         return name;
     }
 
-    public Map<String,String> getColumnValues(){
+    public String name(){
+        return responsable;
+    }
+
+    public ArrayList<Values> getColumnValues(){
         return column_values;
     }
 }

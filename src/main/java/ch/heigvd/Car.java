@@ -1,22 +1,21 @@
 package ch.heigvd;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Car {
     private String id;
-    private String plate;
-    private Map<String,String> column_values = new HashMap<String, String>();
+    private String name;
+    private ArrayList<Values> column_values;
 
     public String getId(){
         return id;
     }
 
     public String getPlate(){
-        return plate;
+        return name;
     }
 
-    public Map<String,String> getColumnValues(){
+    public ArrayList<Values> getColumnValues(){
         return column_values;
     }
 }

@@ -1,28 +1,38 @@
 package ch.heigvd;
 
-import java.util.List;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 public class DriversToCar {
-    private List<Car> cars;
-    private List<Driver> drivers;
+    private ArrayList<Car> cars = new ArrayList<>();
+    private ArrayList<Driver> drivers  = new ArrayList<>();
 
     public Car parseJsonToCar(String json){
-        //parse JSON
-        //add car to list
-        return null;
+
+        Gson gson = new Gson();
+        Car car = gson.fromJson(json, Car.class);
+
+        cars.add(car);
+
+        return car;
     }
 
     public Driver parseJsonToDriver(String json){
-        //parse JSON
-        //add driver to list
-        return null;
+
+        Gson gson = new Gson();
+        Driver driver = gson.fromJson(json, Driver.class);
+
+        drivers.add(driver);
+
+        return driver;
     }
 
-    public List<Car> getCars(){
+    public ArrayList<Car> getCars(){
         return cars;
     }
 
-    public List<Driver> getDrivers(){
+    public ArrayList<Driver> getDrivers(){
         return drivers;
     }
 }

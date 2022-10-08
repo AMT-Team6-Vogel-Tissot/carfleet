@@ -23,8 +23,8 @@ public class DriverTests {
     @BeforeEach
     void doBeforeEach() {
 
-        var json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"subitems\":[{\"name\":\"%s\"," +
-                "\"column_values\":[{\"title\":\"%s\",\"text\":\"%s\"}," + "{\"title\":\"%s\",\"text\":\"%s\"}]}]}", ID, PLATE, NAME, COL_1, VAL_1, COL_2, VAL_2);
+        var json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"responsable\":\"%s\"," +
+                "\"column_values\":[{\"title\":\"%s\",\"text\":\"%s\"}," + "{\"title\":\"%s\",\"text\":\"%s\"}]}", ID, PLATE, NAME, COL_1, VAL_1, COL_2, VAL_2);
 
         driverReceived = fleet.parseJsonToDriver(json);
 
@@ -33,11 +33,11 @@ public class DriverTests {
     @Test
     void isTheCreationOfADriverIsCorrect(){
 
-        Map<String,String> mapExcepted = new HashMap<>();
+        Map<String,String> mapExcepted = new LinkedHashMap<>();
 
         mapExcepted.put("id", ID);
-        mapExcepted.put("plate", PLATE);
-        mapExcepted.put("name", NAME);
+        mapExcepted.put("name", PLATE);
+        mapExcepted.put("responsable", NAME);
 
         ArrayList<String> tabDriver = new ArrayList<>(Arrays.asList(driverReceived.getId(), driverReceived.getPlate(), driverReceived.name()));
 
@@ -51,12 +51,18 @@ public class DriverTests {
     @Test
     void isTheCreationOfColumnValuesIsCorrect(){
 
-        Map<String,String> mapExcepted = new HashMap<>();
+        Map<String,String> mapExcepted = new LinkedHashMap<>();
 
         mapExcepted.put("Nom/prénom", VAL_1);
         mapExcepted.put("Téléphone", VAL_2);
 
-        assertEquals(mapExcepted, driverReceived.getColumnValues());
+        Iterator<Values> i = driverReceived.getColumnValues().iterator();
+
+        for(Map.Entry<String, String> m : mapExcepted.entrySet()){
+            Values val = i.next();
+            assertEquals(m.getKey(), val.getTitle());
+            assertEquals(m.getValue(), val.getText());
+        }
 
     }
 }
