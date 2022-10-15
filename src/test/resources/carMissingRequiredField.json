@@ -1,0 +1,27 @@
+{
+  "data": {
+    "boards": [
+      {
+        "items": [
+          {
+            "id": "939948275",
+            "column_values": [
+              {
+                "title": "Modèle",
+                "text": "Volkswagen California"
+              },
+              {
+                "title": "Sous-éléments",
+                "text": "Coordonnées du chauffeur"
+              },
+              {
+                "title": "Nom/prénom",
+                "text": "Schmidt Alain"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
