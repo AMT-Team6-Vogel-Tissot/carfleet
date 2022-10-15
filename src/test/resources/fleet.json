@@ -1,0 +1,57 @@
+{
+  "data": {
+    "boards": [
+      {
+        "items": [
+          {
+            "id": "939948275",
+            "name": "GE 123201",
+            "column_values": [
+              {
+                "title": "Modèle",
+                "text": "Volkswagen California"
+              },
+              {
+                "title": "Sous-éléments",
+                "text": "Coordonnées du chauffeur"
+              },
+              {
+                "title": "Nom/prénom",
+                "text": "Schmidt Alain"
+              },
+              {
+                "title": "Numéro de véhicule interne entreprise",
+                "text": ""
+              },
+              {
+                "title": "Numéro de châssis",
+                "text": "WV1 ZZZ 2KZ KY0 417 46"
+              }
+            ]
+          },
+          {
+            "id": "2",
+            "name": "GE 2",
+            "column_values": [
+              {
+                "title": "Modèle",
+                "text": "Volkswagen 2"
+              }
+            ]
+          },
+          {
+            "id": "3",
+            "name": "GE 3",
+            "column_values": [
+              {
+                "title": "Modèle",
+                "text": "Volkswagen 3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "account_id": 7650323
+}
