@@ -1,6 +1,7 @@
 package ch.heigvd;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ public class DriversToCar {
 
     public Car parseJsonToCar(String json){
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(Car.class, new CarGsonDeserializer()).create();
         Car car = gson.fromJson(json, Car.class);
 
         cars.add(car);
@@ -20,7 +21,7 @@ public class DriversToCar {
 
     public Driver parseJsonToDriver(String json){
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(Driver.class, new DriverGsonDeserializer()).create();
         Driver driver = gson.fromJson(json, Driver.class);
 
         drivers.add(driver);
