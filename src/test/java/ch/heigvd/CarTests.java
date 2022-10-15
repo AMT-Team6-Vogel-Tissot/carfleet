@@ -1,8 +1,12 @@
 package ch.heigvd;
 
+import com.google.gson.JsonParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -59,5 +63,45 @@ public class CarTests {
         }
 
     }
+
+    @Test
+    void carEmpty() throws IOException {
+        var json = readFile("carEmpty.json");
+
+        assertThrows(JsonParseException.class, () -> fleet.parseJsonToCar(json));
+    }
+
+    @Test
+    void carWithColumnValuesMissing() throws IOException {
+        var json = readFile("carMissingColumnValues.json");
+
+        assertThrows(JsonParseException.class, () -> fleet.parseJsonToCar(json));
+    }
+
+    @Test
+    void carWithARequiredFieldMissing() throws IOException {
+        var json = readFile("carMissingRequiredField.json");
+
+        assertThrows(JsonParseException.class, () -> fleet.parseJsonToCar(json));
+    }
+
+    @Test
+    void carWithInvalidFieldType() throws IOException {
+        var json = readFile("carWithInvalidFieldType.json");
+
+        assertThrows(JsonParseException.class, () -> fleet.parseJsonToCar(json));
+    }
+
+    @Test
+    void carWithBadStructure() throws IOException {
+        var json = readFile("carWithBadStructure.json");
+
+        assertThrows(JsonParseException.class, () -> fleet.parseJsonToCar(json));
+    }
+
+    private String readFile(String fileName) throws IOException {
+        return Files.readString(Path.of("src/test/resources", fileName));
+    }
+
 
 }
