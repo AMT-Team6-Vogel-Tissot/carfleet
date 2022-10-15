@@ -14,62 +14,43 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DriverTests {
 
     private DriversToCar fleet = new DriversToCar();
-
-    Driver driverReceived;
-    private final String ID = "939948325";
-    private final String NAME = "Responsable véhicule : Maxime Fontaines";
-    private final String PLATE = "GE 4567889";
-    private final String COL_1 = "Nom/prénom";
-    private final String COL_2 = "Téléphone";
-    private final String VAL_1 = "Libre Service";
-    private final String VAL_2 = "41276519164";
+    Driver driver;
 
     @BeforeEach
     void doBeforeEach() {
 
-        var json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"responsable\":\"%s\"," +
-                "\"column_values\":[{\"title\":\"%s\",\"text\":\"%s\"}," + "{\"title\":\"%s\",\"text\":\"%s\"}]}", ID, PLATE, NAME, COL_1, VAL_1, COL_2, VAL_2);
+        ArrayList<Values> column_values = new ArrayList<>(List.of(
+                new Values("Nom/prénom", "Libre Service"),
+                new Values("Téléphone", "41276519164"),
+                new Values("E-mail", "m.fontainesd@lift.ch")
+        ));
 
-        driverReceived = fleet.parseJsonToDriver(json);
-
+        driver = new Driver("939948325", "GE 4567889", "Responsable véhicule : Maxime Fontaines", column_values);
     }
 
     @Test
-    void isTheCreationOfADriverIsCorrect(){
+    void isTheCreationOfADriverIsCorrect() throws IOException {
 
-        Map<String,String> mapExcepted = new LinkedHashMap<>();
+        var json = readFile("driver.json");
 
-        mapExcepted.put("id", ID);
-        mapExcepted.put("name", PLATE);
-        mapExcepted.put("responsable", NAME);
+        Driver driverReceived = fleet.parseJsonToDriver(json);
 
-        ArrayList<String> tabDriver = new ArrayList<>(Arrays.asList(driverReceived.getId(), driverReceived.getPlate(), driverReceived.name()));
+        assertEquals(driver.getId(), driverReceived.getId());
+        assertEquals(driver.getLicensePlate(), driverReceived.getLicensePlate());
+        assertEquals(driver.getResponsable(), driverReceived.getResponsable());
 
-        Iterator<String> i = tabDriver.iterator();
+        var itDriver = driver.getColumnValues().iterator();
+        var itDriverReceived = driverReceived.getColumnValues().iterator();
 
-        for(Map.Entry<String, String> m : mapExcepted.entrySet()){
-            assertEquals(m.getValue(), i.next());
-        }
-    }
+        while(itDriverReceived.hasNext() || itDriver.hasNext()){
+            var valDriver = itDriver.next();
+            var valDriverReceived = itDriverReceived.next();
 
-    @Test
-    void isTheCreationOfColumnValuesIsCorrect(){
-
-        Map<String,String> mapExcepted = new LinkedHashMap<>();
-
-        mapExcepted.put("Nom/prénom", VAL_1);
-        mapExcepted.put("Téléphone", VAL_2);
-
-        Iterator<Values> i = driverReceived.getColumnValues().iterator();
-
-        for(Map.Entry<String, String> m : mapExcepted.entrySet()){
-            Values val = i.next();
-            assertEquals(m.getKey(), val.getTitle());
-            assertEquals(m.getValue(), val.getText());
+            assertEquals(valDriver.getTitle(), valDriverReceived.getTitle());
+            assertEquals(valDriver.getText(), valDriverReceived.getText());
         }
 
     }
-
     @Test
     void driverEmpty() throws IOException {
         var json = readFile("driverEmpty.json");
